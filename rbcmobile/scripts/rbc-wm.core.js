@@ -81,8 +81,7 @@ $( function () {
 
 function createFancyScrollbarForNav () {
 	$( '.nav-box' ).mCustomScrollbar({
-		theme: 'minimal-dark',
-		scrollInertia: 4000 
+		theme: 'minimal-dark'
 	});
 };
 
