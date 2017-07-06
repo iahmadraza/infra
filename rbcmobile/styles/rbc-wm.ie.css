@@ -1,0 +1,7 @@
+/* -- rbc-wm.ie.css */
+header.global-header .sticky-header {
+	position: absolute;
+	left: 0;top: 0;right: 0;
+	background-color: white;
+	z-index: 100;
+}
