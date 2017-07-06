@@ -23,14 +23,19 @@ $( function () {
 	
 	/* -- Nav show/hide */
 	$( 'body' ).on( 'click', 'div.glmenu-icon>a.btn-glmenu-icon', function () {
+		var contWidth = $( 'header.global-header div.container' ).width();
 		if ( !$( this ).hasClass( 'menu-active' ) ) {
 			$( this ).addClass( 'menu-active' );
 			$( 'div.page-wrapper' ).addClass( 'shift-nav' );
 			$( 'nav.global-nav' ).addClass( 'nav-showing' );
+			$( 'header.global-header' ).addClass( 'shift-header' );
+			// $( 'header.global-header div.container' ).width( contWidth - 300 );
 		} else {
 			$( this ).removeClass( 'menu-active' );
 			$( 'div.page-wrapper' ).removeClass( 'shift-nav' );
 			$( 'nav.global-nav' ).removeClass( 'nav-showing' );
+			$( 'header.global-header' ).removeClass( 'shift-header' );
+			// $( 'header.global-header div.container' ).width( contWidth + 300 );
 		}
 	});
 	
