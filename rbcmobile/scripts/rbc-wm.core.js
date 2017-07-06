@@ -83,6 +83,9 @@ function createFancyScrollbarForNav () {
 	$( '.nav-box' ).mCustomScrollbar({
 		theme: 'minimal-dark'
 	});
+	document.querySelector( '.nav-box' ).scrollIntoView({
+		behavior: 'smooth'
+	});
 };
 
 function startLogoutCounter2 () {
