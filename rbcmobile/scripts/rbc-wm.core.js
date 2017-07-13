@@ -5,6 +5,7 @@ $( function () {
 	/* -- fancy scrollbar for navigation panel */
 	createFancyScrollbarForNav();
 	//createFancyScrollbarForList();
+	glHeaderHeight();
 	
 	/* -- In-Menu search option */
 	$( 'body' ).on( 'click', 'div.search-start a.btn-search', function () {
@@ -76,7 +77,8 @@ $( function () {
 	
 	/* -- Logout modal show */
 	$( 'body' ).on( 'click', 'a.btn-logout', function () {
-		$(' .tiny-modal ').show(1);
+		// $(' .tiny-modal ').show(1);
+		$( 'div#tm-logout' ).show(1);
 		$( 'div#tm-logout' ).addClass( 'tinymodal-showing' );
 		/* -- Logout counter */
 		//$('.logout-counter').stop();
@@ -88,6 +90,12 @@ $( function () {
 		logoutCounter = 30;
 		$( 'div#tm-logout' ).removeClass( 'tinymodal-showing' );
 	});
+
+	/* -- modal show : privacy policy */
+	showPrivacyModal();
+	/*$( 'body' ).on( 'click', 'div#tm-privacy a.tm-default', function () {
+		$( 'div#tm-privacy' ).removeClass( 'tinymodal-showing' );
+	});*/
 	
 	/* -- clear search text button show/hide */
 	$( 'body' ).on( 'keyup', 'div.search-text-area input.search-input', function () {
@@ -144,38 +152,75 @@ $( function () {
 		}
 	});
 
-	//.ux-component .ux-calendar img.btn-calendar
-	$( 'body' ).on( 'click', 'div.ux-component div.ux-calendar', function ( event ) {
-		// event.stopPropagation();
-		// alert('uppiii');
-		if ( !$( this ).hasClass( 'component-active' ) ) {
-			$( this ).addClass( 'component-active' );
-			$( this ).find( 'img.btn-calendar' ).addClass( 'btn-cal-active' );
-		}
-	});
-
-	$( 'body' ).on( 'click', 'div.ux-component div.ux-calendar img.btn-calendar', function ( event ) {
-		event.stopPropagation();
-		if ( $( this ).hasClass( 'btn-cal-active' ) ) {
-			$( this ).removeClass( 'btn-cal-active' );
+	$( 'body' ).on( 'click', 'div.ux-component div.ux-calendar div.cal-trigger', function ( event ) {
+		if ( !$( this ).hasClass( 'cal-tri-active' ) ) {
+			$( 'html, body' ).animate( {scrollTop : $( this ).offset().top - 100 }, 700 );
+			$( this ).addClass( 'cal-tri-active' );
+			// $( this ).closest( 'div.ux-calendar' ).addClass( 'ux-comp-selected' );
+			$( this ).closest( 'div.ux-calendar' ).addClass( 'component-active' );
+			$( this ).closest( 'div.ux-calendar' ).find( '.txtSelectDate' ).focus();
+			// $( this ).closest( 'div.ux-component' ).addClass( 'component-active' );
+		} else {
+			$( this ).removeClass( 'cal-tri-active' );
 			$( this ).closest( 'div.ux-calendar' ).removeClass( 'component-active' );
 		}
 	});
 
-	// var dateField = 
-	$( 'div.calendar-inline' ).datepicker({
-		dateFormat: 'dd-mm-y', 
-		altField: '#calValueDate',
-		onSelect: function ( date ) {
-			var selectedDate = date;
-			$( this ).closest( 'div.ux-component' ).find( 'div.ux-calendar' ).find( 'div.enter-data-input' ).children( 'input.txtSelectDate' ).val( selectedDate );
-			//alert( 'date = ' + date );
-			//$('a.ui-state-default').removeClass('ui-state-highlight');
-			//$(this).addClass('ui-state-highlight');
+	$( 'body' ).on( 'change', 'div.ux-component div.ux-calendar div.cal-input input.txtSelectDate', function ( event ) {
+		var selCalDate = $( this ).val();
+		$( this ).closest( 'div.ux-calendar' ).find( 'div.cal-trigger' ).find( 'em.entered-data' ).html( selCalDate );
+		// alert('selCalDate = ' + selCalDate);
+	});
+
+	//calendar on payment 1 of 2 page
+	//-- enable for calendar page ONLY 
+	//calendarOnPayment();
+
+	/* //paging list - collpase/expand */
+	$('body').on('click', '.main-pager .table-item .data-item a.di-more', function() {
+		if (!$(this).hasClass('di-more-active')) {
+			$(this).closest('div.table-data').find('a.di-more').removeClass('di-more-active');
+			$(this).closest('div.table-data').find('div.data-content').removeClass('dc-expanded');
+			$(this).addClass('di-more-active');
+			$(this).closest('div.table-item').find('div.data-content').addClass('dc-expanded');
+		} else {
+			$(this).removeClass('di-more-active');
+			$(this).closest('div.table-item').find('div.data-content').removeClass('dc-expanded');
 		}
 	});
 
-	//alert($( "div.calendar-inline" ).datepicker( "getDate" ));
+	/* //paging list - item selection */
+	$( 'body' ).on( 'click', '.main-pager .table-item .data-item a.di-heading', function() {
+		$( this ).closest( 'div.table-data' ).find( 'div.data-item' ).removeClass( 'data-item-selected' );
+		$( this ).closest( 'div.data-item' ).addClass( 'data-item-selected' );
+	});
+
+	$('.modal').on('shown.bs.modal', function (e) {
+		// setModalHeight( $(this) );
+	});
+
+	/* Toast messages */
+	//showToastMessage( 'Date is required', 'error', true );
+	$( 'body' ).on( 'click', 'div.toast-messages div.msg-toast', function() {
+		setTimeout(function () {
+			$( 'div.toast-messages' ).find( '.msg-toast' ).removeClass( 'msg-showing' );
+		}, 300);
+	});
+
+	/* //navigation tab setup */
+	// navTabSetup();
+	navBarTabSetup();
+
+	$( 'body' ).on( 'click', 'div.navtabs-box ul.lst-navtabs-box li a', function() {
+		if ( !$( this ).hasClass( 'navtab-active' ) ) {
+			$( this ).closest( 'ul.lst-navtabs-box' ).find( 'a' ).removeClass( 'navtab-active' );
+			$( this ).addClass( 'navtab-active' );
+		}
+		scrollToNavTab( $(this) );
+	});
+
+	//detect IE
+	// detectIE();
 
 	/* -- on window scroll */
 	$( window ).on( 'scroll', function ( e ) {
@@ -234,4 +279,114 @@ function changeCounter( lgCounter ) {
 		clearInterval( logoutTimer );
 		logoutCounter = 30;
 	}
+};
+
+function setModalHeight ( $element ) {
+	// alert( '$this ' + $element.html() );
+	// .modal .modal-body
+	var modHeaderHeight = $element.find( 'div.modal-header' ).height();
+	var modFooterHeight = $element.find( 'div.modal-footer' ).height();
+
+	$element.find( 'div.modal-content' ).css({
+		// 'background': 'red',
+		'padding-top' : modHeaderHeight,
+		'padding-bottom' : modFooterHeight
+	});
+};
+
+function glHeaderHeight () {
+	$( 'div.sticky-header-spacer' ).height( $( 'header.global-header' ).height() );
+}
+
+function calendarOnPayment () {
+	// var dateField = 
+	$( 'div.calendar-inline' ).datepicker({
+		dateFormat: 'dd-mm-yy', 
+		// changeMonth: true,
+		changeYear: true,
+		// altField: '#calValueDateRO',
+		onSelect: function ( date ) {
+			var selectedDate = date;
+			$( this ).closest( 'div.ux-calendar' ).find( 'input.txtSelectDate' ).removeAttr( 'placeholder' ).val( selectedDate );
+			$( this ).closest( 'div.ux-calendar' ).find( 'div.cal-trigger' ).find( 'em.entered-data' ).addClass( 'data-entered' ).html( selectedDate );
+			$( this ).closest( 'div.ux-calendar' ).addClass( 'ux-comp-selected' );
+			//$( this ).closest( 'div.ux-calendar' ).find( 'input.txtSelectDate' ).trigger( 'change' );
+			//alert( 'date = ' + date );
+			//$('a.ui-state-default').removeClass('ui-state-highlight');
+			//$(this).addClass('ui-state-highlight');
+		}
+	});
+};
+
+function detectIE () {
+	if (/MSIE (\d+\.\d+);/.test(navigator.userAgent) || navigator.userAgent.indexOf("Trident/") > -1 ){
+		$( 'head' ).append( '<link rel="stylesheet" type="text/css" href="styles/rbc-wm.ie.css" />' );
+	}
+};
+
+function showPrivacyModal () {
+	$( 'div#tm-privacy' ).show(1);
+	$( 'div#tm-privacy' ).addClass( 'tinymodal-showing' );
+};
+
+function showToastMessage (messageText, messageType, autoDismiss, messageDuration) {
+	var messageHTML = '<div class="msg-toast msg-'+ messageType +'"><em>'+ messageText +'</em></div>';
+	$( 'div.toast-messages' ).html( messageHTML );
+	setTimeout(function () {
+		$( 'div.toast-messages' ).find( '.msg-toast' ).addClass( 'msg-showing' );
+	}, 300);
+	
+	if (typeof messageDuration === "undefined" || messageDuration === null) { 
+		messageDuration = 5000;
+	}
+
+	if ( autoDismiss ) {
+		setTimeout(function () {
+			$( 'div.toast-messages' ).find( '.msg-toast' ).removeClass( 'msg-showing' );
+		}, messageDuration);
+		setTimeout(function () {
+			$( 'div.toast-messages' ).html( '' );
+		}, messageDuration + 400);
+	}
+};
+
+function navTabSetup () {
+	var navWidth = 0;
+	$( 'div.navtabs-box' ).find( 'ul.lst-navtabs-box' ).children( 'li' ).each(function () {
+		navWidth += $( this ).width() + 20;
+		// console.log( 'navWidth = ' + navWidth);
+	});
+	$( 'div.navtabs-box' ).find( 'ul.lst-navtabs-box' ).width( navWidth );
+	// alert( 'navWidth = ' + navWidth );
+};
+
+function navBarTabSetup () {
+	$( 'div.navtabs-scroller' ).mCustomScrollbar({
+		/*theme: 'minimal-dark',
+		axis: "x",
+		advanced:{
+			autoExpandHorizontalScroll:true
+		},
+		contentTouchScroll: true,
+		documentTouchScroll: true*/
+		scrollInertia: 1000,
+		axis: "x",
+		theme: "dark-thin",
+		// autoExpandScrollbar: true,
+		autoHideScrollbar: true,
+		advanced:{ 
+			autoExpandHorizontalScroll: true
+		},
+		contentTouchScroll: 50,
+		documentTouchScroll: true
+	});
+	document.querySelector( 'div.navtabs-box' ).scrollIntoView({
+		behavior: 'smooth'
+	});
+};
+
+function scrollToNavTab ( elmItem ) {
+	var scrollToElement = elmItem[0].offsetLeft - 5;
+	// The 'div' before '#' is not necessary, but I want to keep some reference to Your selector
+	$( 'div.navtabs-scroller' ).mCustomScrollbar( 'scrollTo', scrollToElement );
 };
