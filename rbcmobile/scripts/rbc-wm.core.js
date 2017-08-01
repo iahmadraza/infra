@@ -3,9 +3,10 @@
 $( function () {
 	
 	/* -- fancy scrollbar for navigation panel */
-	createFancyScrollbarForNav();
+	// createFancyScrollbarForNav();
 	//createFancyScrollbarForList();
-	glHeaderHeight();
+	// glHeaderHeight();
+	// glActionsHeight();
 	
 	/* -- In-Menu search option */
 	$( 'body' ).on( 'click', 'div.search-start a.btn-search', function () {
@@ -56,24 +57,7 @@ $( function () {
 	});
 	
 	/* -- Nav show/hide */
-	$( 'body' ).on( 'click', 'div.glmenu-icon>a.btn-glmenu-icon', function () {
-		var contWidth = $( 'header.global-header div.container' ).width();
-		if ( !$( this ).hasClass( 'menu-active' ) ) {
-			$( this ).addClass( 'menu-active' );
-			$( 'div.page-wrapper' ).addClass( 'shift-nav' );
-			$( 'nav.global-nav' ).addClass( 'nav-showing' );
-			// $( 'header.global-header' ).addClass( 'shift-header' );
-			$( 'div.wrapper-overlay' ).fadeIn( 300 );
-			// $( 'header.global-header div.container' ).width( contWidth - 300 );
-		} else {
-			$( this ).removeClass( 'menu-active' );
-			$( 'div.page-wrapper' ).removeClass( 'shift-nav' );
-			$( 'nav.global-nav' ).removeClass( 'nav-showing' );
-			$( 'div.wrapper-overlay' ).fadeOut( 200 );
-			// $( 'header.global-header' ).removeClass( 'shift-header' );
-			// $( 'header.global-header div.container' ).width( contWidth + 300 );
-		}
-	});
+	globalNavigation();
 	
 	/* -- Logout modal show */
 	$( 'body' ).on( 'click', 'a.btn-logout', function () {
@@ -91,8 +75,10 @@ $( function () {
 		$( 'div#tm-logout' ).removeClass( 'tinymodal-showing' );
 	});
 
+	//cancelPaymentPopup();
+
 	/* -- modal show : privacy policy */
-	showPrivacyModal();
+	// showPrivacyModal();
 	/*$( 'body' ).on( 'click', 'div#tm-privacy a.tm-default', function () {
 		$( 'div#tm-privacy' ).removeClass( 'tinymodal-showing' );
 	});*/
@@ -135,14 +121,45 @@ $( function () {
 		$( this ).closest( 'div.table-data' ).find( '.progress-sorting' ).fadeOut( 200 );
 	});
 
+	/* -- enter input - component  */ 
 	$( 'body' ).on( 'click', 'div.ux-input.ux-comp-box', function () {
-		if ( !$( this ).hasClass( 'component-active' ) ) {
-			$( this ).addClass( 'component-active' );
-			$( this ).find( 'input.txtEnteredData' ).val( '' ).focus();
+		if ( !$( this ).hasClass( 'ux-input-readonly' ) ) {
+			if ( !$( this ).hasClass( 'component-active' ) ) {
+				$( this ).addClass( 'component-active' );
+				// $( this ).find( 'input.txtEnteredData' ).val( '' ).focus();
+				$( this ).find( 'input.txtEnteredData' ).focus();
+			}
 		}
 	});
 
-	$( 'body' ).on( 'click', 'div.ux-input div.enter-input u.btn-input-done', function ( event ) {
+	/* -- enter dropdown values - component (SS.) */
+	$( 'body' ).on( 'click', 'div.ux-input-dropdown.ux-comp-box', function () {
+		if ( !$( this ).hasClass( 'ux-input-readonly' ) ) {
+			if ( !$( this ).hasClass( 'component-active' ) ) {
+				$( this ).addClass( 'component-active' );
+			}
+		}
+	});
+
+	/* //-- show drop down - component */
+	$( 'body' ).on( 'click', 'div.ux-dropdown a.drp-enterdata', function () {
+		if ( !$( this ).hasClass( 'ux-dropdown-readonly' ) ) {
+			if ( !$( this ).closest( 'div.ux-dropdown' ).hasClass( 'dropdown-active' ) ) {
+				$( this ).closest( 'div.ux-dropdown' ).addClass( 'dropdown-active' );
+				$( this ).find( 'div.enter-input input[type="text"]' ).focus();
+			}
+		}
+	});
+	$( 'body' ).on( 'click', 'div.ux-dropdown a.drp-showcontent', function () {
+		if ( !$( this ).closest( 'div.ux-dropdown' ).hasClass( 'dropdown-showing' ) ) {
+			$( this ).closest( 'div.ux-dropdown' ).addClass( 'dropdown-showing dropdown-active' );
+			// $( this ).search-input
+		} else {
+			$( this ).closest( 'div.ux-dropdown' ).removeClass( 'dropdown-showing dropdown-active' );
+		}
+	});
+
+	/*$( 'body' ).on( 'click', 'div.ux-input div.enter-input u.btn-input-done', function ( event ) {
 		event.stopPropagation();
 		$( this ).siblings( 'input.txtEnteredData' ).focus();
 		if ( $( this ).siblings( 'input.txtEnteredData' ).val().length !== 0 ) {
@@ -150,7 +167,7 @@ $( function () {
 			$( this ).closest( 'div.ux-input' ).removeClass( 'component-active' ).addClass( 'ux-comp-selected' );
 			$( this ).closest( 'div.ux-input' ).find( 'em.entered-data' ).html( enteredValue );
 		}
-	});
+	});*/
 
 	$( 'body' ).on( 'click', 'div.ux-component div.ux-calendar div.cal-trigger', function ( event ) {
 		if ( !$( this ).hasClass( 'cal-tri-active' ) ) {
@@ -174,33 +191,38 @@ $( function () {
 
 	//calendar on payment 1 of 2 page
 	//-- enable for calendar page ONLY 
-	//calendarOnPayment();
+	// calendarOnPayment();
 
 	/* //paging list - collpase/expand */
 	$('body').on('click', '.main-pager .table-item .data-item a.di-more', function() {
-		if (!$(this).hasClass('di-more-active')) {
-			$(this).closest('div.table-data').find('a.di-more').removeClass('di-more-active');
-			$(this).closest('div.table-data').find('div.data-content').removeClass('dc-expanded');
-			$(this).addClass('di-more-active');
-			$(this).closest('div.table-item').find('div.data-content').addClass('dc-expanded');
-		} else {
-			$(this).removeClass('di-more-active');
-			$(this).closest('div.table-item').find('div.data-content').removeClass('dc-expanded');
+		if ( !$( this ).closest( 'div.data-item' ).hasClass( 'item-disabled' ) ) {
+			if (!$(this).hasClass('di-more-active')) {
+				$(this).closest('div.table-data').find('a.di-more').removeClass('di-more-active');
+				$(this).closest('div.table-data').find('div.data-content').removeClass('dc-expanded');
+				$(this).addClass('di-more-active');
+				$(this).closest('div.table-item').find('div.data-content').addClass('dc-expanded');
+			} else {
+				$(this).removeClass('di-more-active');
+				$(this).closest('div.table-item').find('div.data-content').removeClass('dc-expanded');
+			}
 		}
 	});
 
 	/* //paging list - item selection */
 	$( 'body' ).on( 'click', '.main-pager .table-item .data-item a.di-heading', function() {
-		$( this ).closest( 'div.table-data' ).find( 'div.data-item' ).removeClass( 'data-item-selected' );
-		$( this ).closest( 'div.data-item' ).addClass( 'data-item-selected' );
+		if ( !$( this ).closest( 'div.data-item' ).hasClass( 'item-disabled' ) ) {
+			$( this ).closest( 'div.table-data' ).find( 'div.data-item' ).removeClass( 'data-item-selected' );
+			$( this ).closest( 'div.data-item' ).addClass( 'data-item-selected' );
+		}
 	});
 
 	$('.modal').on('shown.bs.modal', function (e) {
-		// setModalHeight( $(this) );
+		//setModalHeight( $(this) );
 	});
 
 	/* Toast messages */
-	//showToastMessage( 'Date is required', 'error', true );
+	// showToastMessage( 'Date is required', 'error', true );
+	// showToastMessage( 'Error occured', 'error', true );
 	$( 'body' ).on( 'click', 'div.toast-messages div.msg-toast', function() {
 		setTimeout(function () {
 			$( 'div.toast-messages' ).find( '.msg-toast' ).removeClass( 'msg-showing' );
@@ -209,21 +231,82 @@ $( function () {
 
 	/* //navigation tab setup */
 	// navTabSetup();
-	navBarTabSetup();
+	
+	// navBarTabSetup();
 
+	//setNavTabtoActivated();
 	$( 'body' ).on( 'click', 'div.navtabs-box ul.lst-navtabs-box li a', function() {
 		if ( !$( this ).hasClass( 'navtab-active' ) ) {
+			var elemWidth = $( this ).parent( 'li' ).width();
+			var elemLeft = $( this ).parent( 'li' ).position().left;
+			// console.log( 'width = ' + elemWidth );
+			// console.log( 'left = ' + elemLeft );
 			$( this ).closest( 'ul.lst-navtabs-box' ).find( 'a' ).removeClass( 'navtab-active' );
 			$( this ).addClass( 'navtab-active' );
+			$( this ).closest( 'ul.lst-navtabs-box' ).find( 'li.navtab-selector' ).css({
+				'width': parseInt( elemWidth ) + 'px', 
+				'left' : parseInt( elemLeft ) + 'px'
+			});
 		}
 		scrollToNavTab( $(this) );
 	});
+
+	// modeSelectorSetup();
+
+
+	/* -- pagination */
+	$( 'body' ).on( 'click', 'div.main-pager div.pagination-container div.pagination-nav span.page-item a.page-link', function() {
+		var currentPage = $( this ).closest( 'div.main-pager' ).find( 'div.pages-content div.pages.page-selected' ).index();
+		var lastPage = $( this ).closest( 'div.main-pager' ).find( 'div.pages-content div.pages' ).length;
+		if ( !$( this ).parent( 'span.page-item' ).hasClass( 'disabled' ) ) {
+			$( this ).closest( 'div.main-pager' ).children( 'div.progress-paging' ).fadeIn();
+			if ( $( this ).hasClass( 'apage-next' ) ) {
+				currentPage++;
+				// $( this ).closest( 'div.main-pager' ).find( 'div.pagination-container em.page-counter' ).html( startRecord + ' - ' + endRecrod + ' of 30' );
+				if ( currentPage == 1 ) {
+					$( this ).closest( 'div.pagination-nav' ).find( 'span.page-item-prev' ).removeClass( 'disabled' );
+				}
+				$( this ).closest( 'div.main-pager' ).find( 'div.pages-content div.pages' ).removeClass( 'page-selected' );
+				$( this ).closest( 'div.main-pager' ).find( 'div.pages-content div.pages' ).eq( currentPage ).addClass( 'page-selected' );
+				if ( currentPage == lastPage - 1 ) {
+					$( this ).parent( 'span.page-item' ).addClass( 'disabled' );
+					$( this ).closest( 'div.main-pager' ).children( 'div.progress-paging' ).fadeOut();
+
+					$( this ).closest( 'div.main-pager' ).find( 'div.pagination-container' ).find( 'div.indicator-box span.indicator' ).removeClass( 'active' );
+					$( this ).closest( 'div.main-pager' ).find( 'div.pagination-container' ).find( 'div.indicator-box span.indicator' ).eq( currentPage ).addClass( 'active' );
+					return false;
+				}
+			} else if ( $( this ).hasClass( 'apage-prev' ) ) {
+				currentPage--;
+				// $( this ).closest( 'div.main-pager' ).find( 'div.pagination-container em.page-counter' ).html( startRecord + ' - ' + endRecrod + ' of 30' );
+				if ( currentPage == 0 ) {
+					$( this ).parent( 'span.page-item' ).addClass( 'disabled' );
+					$( this ).closest( 'div.main-pager' ).find( 'div.pages-content div.pages' ).removeClass( 'page-selected' );
+					$( this ).closest( 'div.main-pager' ).find( 'div.pages-content div.pages' ).eq( currentPage ).addClass( 'page-selected' );
+					$( this ).closest( 'div.main-pager' ).children( 'div.progress-paging' ).fadeOut();
+
+					$( this ).closest( 'div.main-pager' ).find( 'div.pagination-container' ).find( 'div.indicator-box span.indicator' ).removeClass( 'active' );
+					$( this ).closest( 'div.main-pager' ).find( 'div.pagination-container' ).find( 'div.indicator-box span.indicator' ).eq( currentPage ).addClass( 'active' );
+					return false;
+				}
+				$( this ).closest( 'div.pagination-nav' ).find( 'span.page-item-next' ).removeClass( 'disabled' );
+				$( this ).closest( 'div.main-pager' ).find( 'div.pages-content div.pages' ).removeClass( 'page-selected' );
+				$( this ).closest( 'div.main-pager' ).find( 'div.pages-content div.pages' ).eq( currentPage ).addClass( 'page-selected' );
+			}
+			$( this ).closest( 'div.main-pager' ).find( 'div.pagination-container' ).find( 'div.indicator-box span.indicator' ).removeClass( 'active' );
+			$( this ).closest( 'div.main-pager' ).find( 'div.pagination-container' ).find( 'div.indicator-box span.indicator' ).eq( currentPage ).addClass( 'active' );
+		};
+		$( this ).closest( 'div.main-pager' ).children( 'div.progress-paging' ).fadeOut();
+	});
+
+	// importantInfo();
 
 	//detect IE
 	// detectIE();
 
 	/* -- on window scroll */
 	$( window ).on( 'scroll', function ( e ) {
+		// console.log( '$( window ).scrollTop() = ' + $( window ).scrollTop() );
 		if ( $( window ).scrollTop() > 10 ) {
 			$( 'header.global-header' ).addClass( 'tiny-header' );
 		} else {
@@ -284,11 +367,12 @@ function changeCounter( lgCounter ) {
 function setModalHeight ( $element ) {
 	// alert( '$this ' + $element.html() );
 	// .modal .modal-body
-	var modHeaderHeight = $element.find( 'div.modal-header' ).height();
-	var modFooterHeight = $element.find( 'div.modal-footer' ).height();
+	var modHeaderHeight = $element.find( 'div.modal-header' ).outerHeight();
+	var modFooterHeight = $element.find( 'div.modal-footer' ).outerHeight();
 
 	$element.find( 'div.modal-content' ).css({
-		// 'background': 'red',
+		'background': 'red',
+		'height' : $( window ).height(),
 		'padding-top' : modHeaderHeight,
 		'padding-bottom' : modFooterHeight
 	});
@@ -296,12 +380,16 @@ function setModalHeight ( $element ) {
 
 function glHeaderHeight () {
 	$( 'div.sticky-header-spacer' ).height( $( 'header.global-header' ).height() );
-}
+};
+
+function glActionsHeight () {
+	$( 'div.sticky-actions-spacer' ).height( $( 'div.global-actions' ).height() );
+};
 
 function calendarOnPayment () {
 	// var dateField = 
 	$( 'div.calendar-inline' ).datepicker({
-		dateFormat: 'dd-mm-yy', 
+		dateFormat: 'MM d yy', 
 		// changeMonth: true,
 		changeYear: true,
 		// altField: '#calValueDateRO',
@@ -347,6 +435,8 @@ function showToastMessage (messageText, messageType, autoDismiss, messageDuratio
 		setTimeout(function () {
 			$( 'div.toast-messages' ).html( '' );
 		}, messageDuration + 400);
+	} else {
+		$( 'div.toast-messages' ).find( '.msg-toast' ).addClass( 'msg-close' );
 	}
 };
 
@@ -371,7 +461,7 @@ function navBarTabSetup () {
 		documentTouchScroll: true*/
 		scrollInertia: 1000,
 		axis: "x",
-		theme: "dark-thin",
+		theme: "minimal",
 		// autoExpandScrollbar: true,
 		autoHideScrollbar: true,
 		advanced:{ 
@@ -383,6 +473,7 @@ function navBarTabSetup () {
 	document.querySelector( 'div.navtabs-box' ).scrollIntoView({
 		behavior: 'smooth'
 	});
+	$( window ).scrollTop(0);
 };
 
 function scrollToNavTab ( elmItem ) {
@@ -390,3 +481,119 @@ function scrollToNavTab ( elmItem ) {
 	// The 'div' before '#' is not necessary, but I want to keep some reference to Your selector
 	$( 'div.navtabs-scroller' ).mCustomScrollbar( 'scrollTo', scrollToElement );
 };
+
+function setNavTabtoActivated () {
+	var ntSelWidth = $( 'div.navtabs-box ul.lst-navtabs-box li' ).find( 'a.navtab-active' ).parent( 'li' ).width();
+	var ntSelLeft  = $( 'div.navtabs-box ul.lst-navtabs-box li' ).find( 'a.navtab-active' ).parent( 'li' ).position().left;
+	$( 'div.navtabs-box ul.lst-navtabs-box li:last-child' ).css({
+		'width': parseInt( ntSelWidth ) + 'px', 
+		'left' : parseInt( ntSelLeft ) + 'px'
+	});
+	scrollToNavTab( $( 'div.navtabs-box ul.lst-navtabs-box li' ).find( 'a.navtab-active' ) );
+};
+
+function modeSelectorSetup () {
+	// primary icons selection on main page - payment, transfer or service request
+	var modeCount = $( 'div.mode-section div.in-mode-section div.mode-selectors>ul.lst-mode-selectors >li' ).length;
+	$( 'div.mode-section div.in-mode-section div.mode-selectors>ul.lst-mode-selectors >li' ).width( 99 / modeCount + '%' );
+};
+
+function importantInfo () {
+	$( 'body' ).off( 'click', 'div.important-info-box div.impinfo-trigger>a' );
+	$( 'body' ).on( 'click', 'div.important-info-box div.impinfo-trigger>a', function() {
+		if ( !$(this).hasClass( 'info-active' ) ) {
+			// $( 'html, body' ).animate( {scrollTop : $( this ).offset().top - 100 }, 700 );
+			$( this ).addClass( 'info-active' );
+			$( this ).closest( 'div.important-info-box' ).find( 'div.impinfo-content' ).slideDown();
+		} else {
+			$( this ).removeClass( 'info-active' );
+			$( this ).closest( 'div.important-info-box' ).find( 'div.impinfo-content' ).slideUp();
+		}
+	});
+};
+
+function cancelPaymentPopup () {
+	/* -- cancel-payment modal show */
+	$( 'body' ).on( 'click', '.btn-cancelpayment', function () {
+		// $(' .tiny-modal ').show(1);
+		$( 'div#tm-cancelpayment' ).show(1);
+		$( 'div#tm-cancelpayment' ).addClass( 'tinymodal-showing' );
+		/* -- Logout counter */
+		//$('.logout-counter').stop();
+		//startLogoutCounter();
+	});
+	$( 'body' ).on( 'click', 'div#tm-cancelpayment a.tm-cp-no', function () {
+		$( 'div#tm-cancelpayment' ).removeClass( 'tinymodal-showing' );
+	});
+};
+
+
+function switchOptionsInit () {
+	$( 'body' ).on( 'click', 'div.ux-switch-tabs div.ux-switch>.lst-ux-switch>li>a', function () {
+		if ( !$( this ).hasClass( 'switch-selected' ) ) {
+			var switchIndex = $( this ).closest( 'ul.lst-ux-switch li' ).index();
+			// alert(switchIndex);
+			$( this ).closest( 'div.ux-switch-tabs' ).find( 'div.ux-switch-container div.ux-switch-content' ).removeClass( 'content-showing' );
+			$( this ).closest( 'div.ux-switch-tabs' ).find( '.lst-ux-switch>li>a' ).removeClass( 'switch-selected' );
+			$( this ).addClass( 'switch-selected' );
+			$( this ).closest( 'div.ux-switch-tabs' ).find( 'div.ux-switch-container' ).children( 'div.ux-switch-content' ).eq( switchIndex ).addClass( 'content-showing' );
+		}
+	});
+};
+
+function nextModalShow () {
+	$( 'body' ).on( 'click', '.btn-nextmodal', function () {
+		$('#modal-selecttransferto').modal('hide')
+		$('#modal-creditanotherrbcaccount').modal('show')
+	});
+};
+
+function globalNavigation() {
+	$( 'body' ).on( 'click', 'div.glmenu-icon>a.btn-glmenu-icon', function () {
+		var contWidth = $( 'header.global-header div.container' ).width();
+		if ( !$( this ).hasClass( 'menu-active' ) ) {
+			$( this ).addClass( 'menu-active' );
+			$( 'body' ).css( 'overflow', 'hidden' );
+			$( 'div.page-wrapper' ).addClass( 'shift-nav' );
+			$( 'nav.global-nav' ).addClass( 'nav-showing' );
+			// $( 'header.global-header' ).addClass( 'shift-header' );
+			$( 'div.wrapper-overlay' ).fadeIn( 300 );
+			// $( 'header.global-header div.container' ).width( contWidth - 300 );
+		} else {
+			$( this ).removeClass( 'menu-active' );
+			// $( 'body' ).removeAttr( 'style' );
+			$( 'body' ).css( 'overflow', 'auto' );
+			$( 'div.page-wrapper' ).removeClass( 'shift-nav' );
+			$( 'nav.global-nav' ).removeClass( 'nav-showing' );
+			$( 'div.wrapper-overlay' ).fadeOut( 200 );
+			// $( 'header.global-header' ).removeClass( 'shift-header' );
+			// $( 'header.global-header div.container' ).width( contWidth + 300 );
+		}
+	});
+};
+
+/* // */
+function selectStatementType () {
+	$( 'select.sel-account-statement' ).closest( 'div.statement-container' ).find( 'div.stmt-container' ).hide();
+	$( 'select.sel-account-statement' ).closest( 'div.statement-container' ).find( 'div.stmt-container' ).eq( 0 ).show();
+	$( 'body').on( 'change', 'div.statement-container select.sel-account-statement', function ( e ) {
+		var selIndex = $( this ).find( 'option:selected' ).index();
+		//alert( 'this selected = ' + selIndex );
+		$( this ).closest( 'div.statement-container' ).find( 'div.stmt-container' ).hide();
+		$( this ).closest( 'div.statement-container' ).find( 'div.stmt-container' ).eq( selIndex ).show();
+	});
+
+};
+
+/* developers JS */
+$(function () {
+	
+	/* ---- Note : sent by : "ramu.gade@rbc.com" on "Tue, Jul 25 6:03 PM" */
+	/* -- on blur - component  */
+	$('body').on('blur', 'div.ux-input.ux-comp-box', function () {
+		if ($(this).hasClass('component-active')) {
+			$(this).removeClass('component-active');
+		}
+	});
+});
+
