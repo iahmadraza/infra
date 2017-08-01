@@ -217,7 +217,7 @@ $( function () {
 	});
 
 	$('.modal').on('shown.bs.modal', function (e) {
-		setModalHeight( $(this) );
+		setModalHeight();
 	});
 
 	/* Toast messages */
@@ -367,13 +367,14 @@ function changeCounter( lgCounter ) {
 		logoutCounter = 30;
 	}
 };
-function setModalHeight ( $element ) {
+// function setModalHeight ( $element ) {
+function setModalHeight () {
 	// alert( '$this ' + $element.html() );
 	// .modal .modal-body
-	var modHeaderHeight = $element.find( 'div.modal-header' ).outerHeight();
-	var modFooterHeight = $element.find( 'div.modal-footer' ).outerHeight();
+	var modHeaderHeight = $( '.modal' ).find( 'div.modal-header' ).outerHeight();
+	var modFooterHeight = $( '.modal' ).find( 'div.modal-footer' ).outerHeight();
 
-	$element.find( 'div.modal-content' ).css({
+	$( '.modal' ).find( 'div.modal-content' ).css({
 		// 'background': 'red',
 		'height' : $( window ).height(),
 		'padding-top' : modHeaderHeight,
