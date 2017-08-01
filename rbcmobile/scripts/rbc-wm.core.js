@@ -217,7 +217,7 @@ $( function () {
 	});
 
 	$('.modal').on('shown.bs.modal', function (e) {
-		//setModalHeight( $(this) );
+		setModalHeight( $(this) );
 	});
 
 	/* Toast messages */
@@ -313,6 +313,10 @@ $( function () {
 			$( 'header.global-header' ).removeClass( 'tiny-header' );
 		}
 	});
+
+	$( window ).on( 'resize', function ( e ) {
+		setModalHeight();
+	});
 });
 
 function createFancyScrollbarForNav () {
@@ -363,7 +367,6 @@ function changeCounter( lgCounter ) {
 		logoutCounter = 30;
 	}
 };
-
 function setModalHeight ( $element ) {
 	// alert( '$this ' + $element.html() );
 	// .modal .modal-body
@@ -371,7 +374,7 @@ function setModalHeight ( $element ) {
 	var modFooterHeight = $element.find( 'div.modal-footer' ).outerHeight();
 
 	$element.find( 'div.modal-content' ).css({
-		'background': 'red',
+		// 'background': 'red',
 		'height' : $( window ).height(),
 		'padding-top' : modHeaderHeight,
 		'padding-bottom' : modFooterHeight
