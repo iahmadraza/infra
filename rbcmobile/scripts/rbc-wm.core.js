@@ -377,10 +377,13 @@ function setModalHeight ( $element ) {
 	// .modal .modal-body
 	var modHeaderHeight = $element.find( 'div.modal-header' ).outerHeight();
 	var modFooterHeight = $element.find( 'div.modal-footer' ).outerHeight();
+	var winHeight = $( window ).height();
+
+	alert( 'Hheight = ' + modHeaderHeight + '/nFheight = ' + modFooterHeight + '/nWindow = ' + winHeight);
 
 	$element.find( 'div.modal-content' ).css({
 		// 'background': 'red',
-		'height' : $( window ).height(),
+		'height' : winHeight,
 		'padding-top' : modHeaderHeight,
 		'padding-bottom' : modFooterHeight
 	});
