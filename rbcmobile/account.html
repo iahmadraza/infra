@@ -46,7 +46,7 @@
 										<a href="javascript:;">Transaction History</a>
 									</li>
 									<li>
-										<a href="javascript:;">Client List</a>
+										<a href="client-list.html">Client List</a>
 									</li>
 								</ul><!--.lst-extra-menuitems-->
 							</div><!--.desktop-extra-menuitems-->
@@ -121,6 +121,7 @@
 										<li>
 											<a href="javascript:;">Credit Summary</a>
 										</li>
+										<li class="navtab-selector"></li>
 									</ul><!--.lst-navtabs-box-->
 								</div><!--.navtabs-box-->
 							</div><!--.navtabs-scroller-->
@@ -137,7 +138,44 @@
 		<!-- **************************************************** -->
 		<!-- ============== Select MODEs :: Start =============== -->
 		<!-- **************************************************** -->
-		<div class=""></div><!--.-->
+		<div class="mode-section">
+			<div class="container">
+				<div class="in-mode-section">
+					<div class="row">
+						<div class="col-xs-12">
+							<div class="mode-selectors">
+								<ul class="lst-mode-selectors">
+									<li>
+										<a href="javascript:;">
+											<div class="mode-image">
+												<img src="images/icon/mode-servicerequest-w.png" align="requests" />
+											</div><!--.mode-image-->
+											<em>Service Requests</em>
+										</a>
+									</li>
+									<li>
+										<a href="payment1of2.html" class="mode-selected">
+											<div class="mode-image">
+												<img src="images/icon/mode-payment-w.png" align="payments" />
+											</div><!--.mode-image-->
+											<em>Payments</em>
+										</a>
+									</li>
+									<li>
+										<a href="transfermoney.html">
+											<div class="mode-image">
+												<img src="images/icon/mode-transfer-w.png" align="transfers" />
+											</div><!--.mode-image-->
+											<em>Transfers</em>
+										</a>
+									</li>
+								</ul><!--.lst-mode-selectors-->
+							</div><!--.mode-selectors-->
+						</div><!--.col-xs-12-->
+					</div><!--.row-->
+				</div><!--.in-mode-section-->
+			</div><!--.container-->
+		</div><!--.mode-section-->
 		<!-- **************************************************** -->
 		<!-- ============== Select MODEs :: End   =============== -->
 		<!-- **************************************************** -->
@@ -149,12 +187,430 @@
 					<div class="col-xs-12">
 						<div class="in-page-container">
 
-							<h1>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-							tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-							quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-							consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-							cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-							proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</h1>
+							<div class="tabular-data">
+								<div class="dt-header">
+									<div class="insearch-start">
+										<a href="javascript:;" class="dt-btn-insearch"></a>
+									</div><!--.search-start-->
+									<h3>Account List</h3>
+								</div><!--.dt-header-->
+								<div class="dt-search">
+									<div class="dt-inlist-search">
+										<a href="javascript:;" class="inlistsearch-clear">clear</a>
+										<input type="text" name="txtinsearch" class="txtinsearch" placeholder="Search account here">
+									</div><!--.dt-inlist-search-->
+								</div><!--.dt-search-->
+								<div class="dt-content">
+									<div class="table-data table-clickable tbl-clientlist">
+										<div class="table-header">
+											<div class="row">
+												<div class="col-xs-9">
+													<em class="tcol-sort">Description</em>
+													<em class="tcol-sort">Number</em>
+													<em class="tcol-sort">Currency</em>
+												</div><!--.col-xs-9-->
+												<div class="col-xs-3">
+													<em class="shift-right tcol-sort">Balance</em>
+												</div><!--.col-xs-3-->
+											</div><!--.row-->
+										</div><!--.table-header-->
+
+										<!-- =============== Main Pager :: Start ================= -->
+										<div class="main-pager">
+											<div class="progress-paging">
+													<div class="progress-spinner">
+														<div></div>
+														<em>Loading...</em>
+													</div><!--.progress-spinner-->
+											</div><!--.progress-pagging-->
+											<div class="pages-content">
+
+												<!-- =============== Paging Loop :: Start -->
+												<div class="pages page-1 page-selected">
+													
+													<!-- =============== Each Record Row - LOOP :: Start -->
+													<div class="table-item">
+														<div class="data-item light-grey ">
+															<div class="row">
+																<div class="col-xs-8">
+																	<a href="javascript:;" class="di-heading">
+																	<b>Investment Account</b>
+																	<em>15,0000 USD</em>
+																	</a><!--.di-heading-->
+																</div><!-- col-xs-9 -->
+																<div class="col-xs-4">
+																	<a href="javascript:;" class="di-more">
+																		<em>5,000</em>
+																	</a><!--.di-more-->
+																</div><!-- col-xs-3 -->
+															</div>
+														</div><!--.data-item-->
+														<div class="data-content">
+															<div class="data-list">
+																	<div class="row">
+																		<div class="col-sm-8 col-xs-8">
+																			<div class="acc-left">
+																				<b>Type</b>
+																			</div><!-- acc-left -->
+																		</div><!-- col-sm-8 col-xs-8 -->
+																		<div class="col-sm-4 col-xs-4">
+																			<div class="acc-right">
+																				<b>Description</b>
+																			</div><!-- acc-right -->
+																		</div><!-- col-sm-4 col-xs-4 -->
+																	</div><!-- row -->
+																	<div class="title-seperator"></div>
+																	<div class="row">
+																		<div class="col-sm-8 col-xs-8">
+																			<div class="acc-left">
+																				Status
+																			</div><!-- acc-left -->
+																		</div><!-- col-sm-8 col-xs-8 -->
+																		<div class="col-sm-4 col-xs-4">
+																			<div class="acc-right">
+																				Active
+																			</div><!-- acc-right -->
+																		</div><!-- col-sm-4 col-xs-4 -->
+																		</div><!-- row -->
+																		<div class="row">
+																		<div class="col-sm-8 col-xs-8">
+																			<div class="acc-left">
+																				Equivalent (USD)
+																			</div><!-- acc-left -->
+																		</div><!-- col-sm-8 col-xs-8 -->
+																		<div class="col-sm-4 col-xs-4">
+																			<div class="acc-right">
+																				0.00
+																			</div><!-- acc-right-->
+																		</div><!-- col-sm-4 col-xs-4 -->
+																	</div><!-- row -->
+																	<div class="row">
+																		<div class="col-sm-12 col-xs-12">
+																			<div class="acc-left">
+																				<a href="summary-statement.html">Summary Statement</a>
+																			</div><!-- acc-left -->
+																		</div><!-- col-sm-12 col-xs-12 -->
+																	</div><!-- row -->
+																	<div class="row">
+																		<div class="col-sm-12 col-xs-12">
+																			<div class="acc-left">
+																				<a href="account-statement.html">Account Statement</a>
+																			</div><!-- acc-left -->
+																		</div><!-- col-sm-12 col-xs-12 -->
+																		
+																	</div><!-- row -->
+																</div><!-- .acc-container -->
+														</div><!--.data-content-->
+													</div><!--.table-item-->
+													<!-- =============== Each Record Row - LOOP :: End   -->
+
+													<div class="table-item">
+														<div class="data-item white">
+															<div class="row">
+																<div class="col-xs-8">
+																	<a href="javascript:;" class="di-heading">
+																	<b>Investment Account</b>
+																	<em>15,0000 USD</em>
+																	</a><!--.di-heading-->
+																</div><!-- col-xs-9 -->
+																<div class="col-xs-4">
+																	<a href="javascript:;" class="di-more">
+																		<em>5,000</em>
+																	</a><!--.di-more-->
+																</div><!-- col-xs-3 -->
+															</div>
+														</div><!--.data-item-->
+														<div class="data-content">
+															<div class="data-list">
+																	<div class="row">
+																		<div class="col-sm-8 col-xs-8">
+																			<div class="acc-left">
+																				<b>Type</b>
+																			</div><!-- acc-left -->
+																		</div><!-- col-sm-8 col-xs-8 -->
+																		<div class="col-sm-4 col-xs-4">
+																			<div class="acc-right">
+																				<b>Description</b>
+																			</div><!-- acc-right -->
+																		</div><!-- col-sm-4 col-xs-4 -->
+																	</div><!-- row -->
+																	<div class="title-seperator"></div>
+																	<div class="row">
+																		<div class="col-sm-8 col-xs-8">
+																			<div class="acc-left">
+																				Status
+																			</div><!-- acc-left -->
+																		</div><!-- col-sm-8 col-xs-8 -->
+																		<div class="col-sm-4 col-xs-4">
+																			<div class="acc-right">
+																				Active
+																			</div><!-- acc-right -->
+																		</div><!-- col-sm-4 col-xs-4 -->
+																		</div><!-- row -->
+																		<div class="row">
+																		<div class="col-sm-8 col-xs-8">
+																			<div class="acc-left">
+																				Equivalent (USD)
+																			</div><!-- acc-left -->
+																		</div><!-- col-sm-8 col-xs-8 -->
+																		<div class="col-sm-4 col-xs-4">
+																			<div class="acc-right">
+																				0.00
+																			</div><!-- acc-right-->
+																		</div><!-- col-sm-4 col-xs-4 -->
+																	</div><!-- row -->
+																</div><!-- .acc-container -->
+														</div><!--.data-content-->
+													</div><!--.table-item-->
+													<div class="table-item">
+														<div class="data-item light-grey ">
+															<div class="row">
+																<div class="col-xs-8">
+																	<a href="javascript:;" class="di-heading">
+																	<b>Investment Account</b>
+																	<em>15,0000 USD</em>
+																	</a><!--.di-heading-->
+																</div><!-- col-xs-9 -->
+																<div class="col-xs-4">
+																	<a href="javascript:;" class="di-more">
+																		<em>5,000</em>
+																	</a><!--.di-more-->
+																</div><!-- col-xs-3 -->
+															</div>
+														</div><!--.data-item-->
+														<div class="data-content">
+															<div class="data-list">
+																	<div class="row">
+																		<div class="col-sm-8 col-xs-8">
+																			<div class="acc-left">
+																				<b>Type</b>
+																			</div><!-- acc-left -->
+																		</div><!-- col-sm-8 col-xs-8 -->
+																		<div class="col-sm-4 col-xs-4">
+																			<div class="acc-right">
+																				<b>Description</b>
+																			</div><!-- acc-right -->
+																		</div><!-- col-sm-4 col-xs-4 -->
+																	</div><!-- row -->
+																	<div class="title-seperator"></div>
+																	<div class="row">
+																		<div class="col-sm-8 col-xs-8">
+																			<div class="acc-left">
+																				Status
+																			</div><!-- acc-left -->
+																		</div><!-- col-sm-8 col-xs-8 -->
+																		<div class="col-sm-4 col-xs-4">
+																			<div class="acc-right">
+																				Active
+																			</div><!-- acc-right -->
+																		</div><!-- col-sm-4 col-xs-4 -->
+																		</div><!-- row -->
+																		<div class="row">
+																		<div class="col-sm-8 col-xs-8">
+																			<div class="acc-left">
+																				Equivalent (USD)
+																			</div><!-- acc-left -->
+																		</div><!-- col-sm-8 col-xs-8 -->
+																		<div class="col-sm-4 col-xs-4">
+																			<div class="acc-right">
+																				0.00
+																			</div><!-- acc-right-->
+																		</div><!-- col-sm-4 col-xs-4 -->
+																	</div><!-- row -->
+																</div><!-- .acc-container -->
+														</div><!--.data-content-->
+													</div><!--.table-item-->
+													<div class="table-item">
+														<div class="data-item white">
+															<div class="row">
+																<div class="col-xs-8">
+																	<a href="javascript:;" class="di-heading">
+																	<b>Investment Account</b>
+																	<em>15,0000 USD</em>
+																	</a><!--.di-heading-->
+																</div><!-- col-xs-9 -->
+																<div class="col-xs-4">
+																	<a href="javascript:;" class="di-more">
+																		<em>5,000</em>
+																	</a><!--.di-more-->
+																</div><!-- col-xs-3 -->
+															</div>
+														</div><!--.data-item-->
+														<div class="data-content">
+															<div class="data-list">
+																	<div class="row">
+																		<div class="col-sm-8 col-xs-8">
+																			<div class="acc-left">
+																				<b>Type</b>
+																			</div><!-- acc-left -->
+																		</div><!-- col-sm-8 col-xs-8 -->
+																		<div class="col-sm-4 col-xs-4">
+																			<div class="acc-right">
+																				<b>Description</b>
+																			</div><!-- acc-right -->
+																		</div><!-- col-sm-4 col-xs-4 -->
+																	</div><!-- row -->
+																	<div class="title-seperator"></div>
+																	<div class="row">
+																		<div class="col-sm-8 col-xs-8">
+																			<div class="acc-left">
+																				Status
+																			</div><!-- acc-left -->
+																		</div><!-- col-sm-8 col-xs-8 -->
+																		<div class="col-sm-4 col-xs-4">
+																			<div class="acc-right">
+																				Active
+																			</div><!-- acc-right -->
+																		</div><!-- col-sm-4 col-xs-4 -->
+																		</div><!-- row -->
+																		<div class="row">
+																		<div class="col-sm-8 col-xs-8">
+																			<div class="acc-left">
+																				Equivalent (USD)
+																			</div><!-- acc-left -->
+																		</div><!-- col-sm-8 col-xs-8 -->
+																		<div class="col-sm-4 col-xs-4">
+																			<div class="acc-right">
+																				0.00
+																			</div><!-- acc-right-->
+																		</div><!-- col-sm-4 col-xs-4 -->
+																	</div><!-- row -->
+																</div><!-- .acc-container -->
+														</div><!--.data-content-->
+													</div><!--.table-item-->
+													<div class="table-item">
+														<div class="data-item light-grey ">
+															<div class="row">
+																<div class="col-xs-8">
+																	<a href="javascript:;" class="di-heading">
+																	<b>Investment Account</b>
+																	<em>15,0000 USD</em>
+																	</a><!--.di-heading-->
+																</div><!-- col-xs-9 -->
+																<div class="col-xs-4">
+																	<a href="javascript:;" class="di-more">
+																		<em>5,000</em>
+																	</a><!--.di-more-->
+																</div><!-- col-xs-3 -->
+															</div>
+														</div><!--.data-item-->
+														<div class="data-content">
+															<div class="data-list">
+																	<div class="row">
+																		<div class="col-sm-8 col-xs-8">
+																			<div class="acc-left">
+																				<b>Type</b>
+																			</div><!-- acc-left -->
+																		</div><!-- col-sm-8 col-xs-8 -->
+																		<div class="col-sm-4 col-xs-4">
+																			<div class="acc-right">
+																				<b>Description</b>
+																			</div><!-- acc-right -->
+																		</div><!-- col-sm-4 col-xs-4 -->
+																	</div><!-- row -->
+																	<div class="title-seperator"></div>
+																	<div class="row">
+																		<div class="col-sm-8 col-xs-8">
+																			<div class="acc-left">
+																				Status
+																			</div><!-- acc-left -->
+																		</div><!-- col-sm-8 col-xs-8 -->
+																		<div class="col-sm-4 col-xs-4">
+																			<div class="acc-right">
+																				Active
+																			</div><!-- acc-right -->
+																		</div><!-- col-sm-4 col-xs-4 -->
+																		</div><!-- row -->
+																		<div class="row">
+																		<div class="col-sm-8 col-xs-8">
+																			<div class="acc-left">
+																				Equivalent (USD)
+																			</div><!-- acc-left -->
+																		</div><!-- col-sm-8 col-xs-8 -->
+																		<div class="col-sm-4 col-xs-4">
+																			<div class="acc-right">
+																				0.00
+																			</div><!-- acc-right-->
+																		</div><!-- col-sm-4 col-xs-4 -->
+																	</div><!-- row -->
+																</div><!-- .acc-container -->
+														</div><!--.data-content-->
+													</div><!--.table-item-->
+												</div><!--.pages.page-1-->
+												<!-- =============== Paging Loop :: End   -->
+
+												<div class="pages page-2">
+													<h1>page 2</h1>
+												</div><!--.pages.page-2-->
+												<div class="pages page-3">
+													<h1>page 3</h1>
+												</div><!--.pages.page-3-->
+												<div class="pages page-4">
+													<h1>page 4</h1>
+												</div><!--.pages.page-4-->
+
+											</div><!--.pages-content-->
+
+											<div class="pagination-container">
+												<div class="row">
+													<div class="col-xs-3">
+														<em class="page-counter">1-5 of 10</em>
+													</div><!--.col-xs-3-->
+													<div class="col-xs-6">
+														<div class="indicator-box">
+															<span class="indicator active"></span>
+															<span class="indicator"></span>
+															<span class="indicator"></span>
+															<span class="indicator"></span>
+														</div><!--.indicator-box-->
+													</div><!--.col-xs-6-->
+													<div class="col-xs-3">
+														<div class="pagination-nav">
+															<span class="page-item page-item-prev disabled">
+																<a class="page-link apage-prev" href="javascript:;"></a>
+															</span><!--.page-item-->
+															<span class="page-item page-item-next">
+																<a class="page-link apage-next" href="javascript:;"></a>
+															</span><!--.page-item-->
+														</div><!--.pagination-nav-->
+													</div><!--.col-xs-3-->
+												</div><!--.row-->
+											</div><!--.page-container-->
+
+										</div><!--.main-pager-->
+										
+										<div class="acount-include-all">
+											<div class="row">
+												<div class="col-xs-12">
+													<div class="checkbox-section">
+														<div class="checkbox">
+															<label>
+																<input type="checkbox" name="">
+																<em>Include closed accounts</em>
+															</label>
+														</div><!--.checkbox-->
+													</div><!--.checkbox-section-->
+												</div><!--.col-xs-12-->
+											</div><!--.row-->
+										</div><!--.acount-include-all-->
+
+										<div class="total-balance">
+											<div class="row">
+												<div class="col-xs-8">
+													<div class="balance-title">
+														<em>Total Equivalent <b>GBP</b></em>
+													</div>
+												</div><!--.col-xs-8-->
+												<div class="col-xs-4">
+													<div class="balance-amt"><em>10,56,000</em></div>
+												</div><!--.col-xs-4-->
+											</div><!--.row-->
+										</div><!--.total-balance-->
+									</div><!--.table-data-->
+
+								</div><!--.dt-content-->
+								
+							</div><!--.tabular-data-->
 							
 						</div><!--.in-page-container-->
 					</div><!--.col-xs-12-->
@@ -214,7 +670,7 @@
 					<div class="nav-items">
 						<ul class="lst-nav-items">
 							<li>
-								<a href="javascript:;" class="item-active">
+								<a href="account.html" class="item-active">
 									<img src="images/icon/pie-chart-w.png" alt="d" />
 									<em>Dashboard</em>
 								</a>
@@ -232,7 +688,7 @@
 								</a>
 							</li>
 							<li>
-								<a href="javascript:;">
+								<a href="terms.html">
 									<img src="images/icon/terms-w.png" alt="user" />
 									<em>Terms &amp; Conditions</em>
 								</a>
@@ -250,7 +706,7 @@
 								</a>
 							</li>
 							<li>
-								<a href="https://www.rbcwealthmanagement.com" class="going-out" target="_blank">Privacy &amp; Security</a>
+								<a href="http://www.rbc.com/privacysecurity/" class="going-out" target="_blank">Privacy &amp; Security</a>
 							</li>
 							<li>
 								<a href="https://www.rbcwealthmanagement.com" class="going-out" target="_blank">RBC Wealth Management</a>
@@ -298,7 +754,7 @@
 								<a href="javascript:;" class="tm-button tm-default">Cancel</a>
 							</div><!--.col-xs-6-->
 							<div class="col-xs-6">
-								<a href="javascript:;" class="tm-button tm-danger">Ok</a>
+								<a href="loggedout.html" class="tm-button tm-danger">Ok</a>
 							</div><!--.col-xs-6-->
 						</div><!--.row-->
 					</div><!--.tinymodal-footer-->
@@ -312,7 +768,16 @@
 		<!-- <script type="text/javascript" src="scripts/lib/bootstrap.min.js"></script> -->
 		<!-- <script type="text/javascript" src="scripts/lib/bootstrap.js"></script> -->
 		<script type="text/javascript" src="scripts/lib/bootstrap.min.js"></script>
+		<script type="text/javascript" src="scripts/lib/jquery.mousewheel.min.js"></script>
 		<script type="text/javascript" src="scripts/lib/jquery.mCustomScrollbar.js"></script>
 		<script type="text/javascript" src="scripts/rbc-wm.core.js"></script>
+		<script type="text/javascript">
+			importantInfo();
+			glHeaderHeight();
+			modeSelectorSetup();
+			setNavTabtoActivated();
+			navTabSetup();
+			navBarTabSetup();
+		</script>
 	</body>
 </html>
