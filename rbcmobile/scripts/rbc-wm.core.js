@@ -7,6 +7,7 @@ $( function () {
 	//createFancyScrollbarForList();
 	// glHeaderHeight();
 	// glActionsHeight();
+	var iOSDevice = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
 	
 	/* -- In-Menu search option */
 	$( 'body' ).on( 'click', 'div.search-start a.btn-search', function () {
@@ -136,10 +137,20 @@ $( function () {
 	$( 'body' ).on( 'click', 'div.ux-input-dropdown.ux-comp-box', function () {
 		if ( !$( this ).hasClass( 'ux-input-readonly' ) ) {
 			if ( !$( this ).hasClass( 'component-active' ) ) {
-				$( this ).addClass( 'component-active' );
+				$( this ).addClass( 'component-active' ).removeClass( 'ux-comp-selected' );
 			}
 		}
 	});
+
+	if ( iOSDevice ) {
+		$( 'body' ).on( 'touchstart', 'div.ux-input-dropdown.ux-comp-box', function () {
+			if ( !$( this ).hasClass( 'ux-input-readonly' ) ) {
+				if ( !$( this ).hasClass( 'component-active' ) ) {
+					$( this ).addClass( 'component-active' ).removeClass( 'ux-comp-selected' );
+				}
+			}
+		});
+	};
 
 	/* //-- show drop down - component */
 	$( 'body' ).on( 'click', 'div.ux-dropdown a.drp-enterdata', function () {
@@ -197,6 +208,7 @@ $( function () {
 	$('body').on('click', '.main-pager .table-item .data-item a.di-more', function() {
 		if ( !$( this ).closest( 'div.data-item' ).hasClass( 'item-disabled' ) ) {
 			if (!$(this).hasClass('di-more-active')) {
+				$( 'html, body' ).animate( {scrollTop : $( this ).offset().top }, 700 );
 				$(this).closest('div.table-data').find('a.di-more').removeClass('di-more-active');
 				$(this).closest('div.table-data').find('div.data-content').removeClass('dc-expanded');
 				$(this).addClass('di-more-active');
@@ -371,21 +383,22 @@ function setModalHeight ( $element ) {
 // function setModalHeight () {
 	// function(nodeBox, str) {
 	if (typeof $element === "undefined" || $element === null) { 
-		$element = $( '.modal' ); 
+		$element = $( '.modal' );
 	}
 	// alert( '$this ' + $element.html() );
 	// .modal .modal-body
-	var modHeaderHeight = $element.find( 'div.modal-header' ).outerHeight();
-	var modFooterHeight = $element.find( 'div.modal-footer' ).outerHeight();
+	// var modHeaderHeight = $element.find( 'div.modal-header' ).outerHeight();
+	// var modFooterHeight = $element.find( 'div.modal-footer' ).outerHeight();
 	var winHeight = $( window ).height();
 
 	// alert( 'Hheight = ' + modHeaderHeight + '/nFheight = ' + modFooterHeight + '/nWindow = ' + winHeight);
+	// console.log('window height = ' + winHeight);
 
 	$element.find( 'div.modal-content' ).css({
 		// 'background': 'red',
 		'height' : winHeight,
-		'padding-top' : modHeaderHeight,
-		'padding-bottom' : modFooterHeight
+		// 'padding-top' : '60px',//modHeaderHeight,
+		// 'padding-bottom' : '70px'//modFooterHeight
 	});
 };
 
@@ -512,8 +525,8 @@ function modeSelectorSetup () {
 function importantInfo () {
 	$( 'body' ).off( 'click', 'div.important-info-box div.impinfo-trigger>a' );
 	$( 'body' ).on( 'click', 'div.important-info-box div.impinfo-trigger>a', function() {
-		if ( !$(this).hasClass( 'info-active' ) ) {
-			// $( 'html, body' ).animate( {scrollTop : $( this ).offset().top - 100 }, 700 );
+		if ( !$( this ).hasClass( 'info-active' ) ) {
+			$( 'html, body' ).animate( {scrollTop : $( this ).offset().top - 100 }, 700 );
 			$( this ).addClass( 'info-active' );
 			$( this ).closest( 'div.important-info-box' ).find( 'div.impinfo-content' ).slideDown();
 		} else {
@@ -596,9 +609,102 @@ function selectStatementType () {
 
 };
 
+function globalClientSearchInit () {
+	var clientListData = [
+		"0511204 Abhishek",
+		"0511204 Ahmad",
+		"0512483 Agastya",
+		"0888833 Ketan",
+		"1061845 Prasad",
+		"5000765 Pravin",
+		"5000765 Sachin",
+		"5000765 Shabari",
+		"5000765 Sunny",
+	];
+	$( "#txtGlobalClientSearch" ).autocomplete({
+		source: clientListData
+	});
+};
+function accountSummaryChart () {
+	var ctx = document.getElementById("accsumChart").getContext('2d');
+	var myPieChart = new Chart(ctx,{
+		type: 'doughnut',
+		data: {
+			labels: ["Fixed Income", "Cash", "Equities", "Fixed Income", "Cash", "Equities", "Fixed Income", "Cash", "Equities",  "Cash"],
+			datasets: [{
+				label: '# of Votes',
+				data: [300,50,100,300,50,100,300,50,100,200],
+				// backgroundColor:["#4472C4", "#5B9BD5", "#A5A5A5", "#6383BB", "#0051A5", "#4D6A89", "#8897A7", "#1C82EC", "#AFD6FF", "#95BBE2" ]
+				backgroundColor: colorArrayBox()
+				/*backgroundColor: [
+					'rgba(39, 120, 188, .98)', 
+					'rgba(39, 120, 188, .90)', 
+					'rgba(39, 120, 188, .80)', 
+					'rgba(39, 120, 188, .70)', 
+					'rgba(39, 120, 188, .60)', 
+					'rgba(39, 120, 188, .50)', 
+					'rgba(39, 120, 188, .40)', 
+					'rgba(39, 120, 188, .30)', 
+					'rgba(39, 120, 188, .20)', 
+					'rgba(39, 120, 188, .10)'
+				]*/
+			}]
+		}, 
+		options: {
+			cutoutPercentage: 60,
+			legend : false,
+			// legend: {
+				// labels: {
+					// generateLabels: function(chart) {
+						 // // Here
+					// }
+				// }
+			// }
+		}
+	});
+	document.getElementById("legendAccSummary").innerHTML = myPieChart.generateLegend();
+
+	// myPieChart.data.datasets[0].backgroundColor = randomColorGenerator();
+	// for (var i = 0; i < myPieChart.data.length; i++){
+	// 	// myPieChart.data.datasets[0].backgroundColor[i] = randomColorGenerator();
+	// 	myPieChart.data.datasets[0].backgroundColor = randomColorGenerator();
+	// 	// myPieChart.update();
+	// }
+
+	// new Chart(document.getElementById("chartjs-4"),{
+	// 	"type":"doughnut",
+	// 	"data":{
+	// 		"labels":["Red","Blue","Yellow"],
+	// 		"datasets":[
+	// 			{"label":"My First Dataset",
+	// 			"data": [300,50,100],
+	// 			"backgroundColor":["rgb(255, 99, 132)","rgb(54, 162, 235)","rgb(255, 205, 86)"]
+	// 			}]
+	// 		}
+	// 	});
+};
+var randomColorGenerator = function () { 
+	return '#' + (Math.random().toString(16) + '0000000').slice(2, 8); 
+};
+// alert(colorArrayBox());
+function colorArrayBox () {
+	var colorArray = new Array();
+	for (var i = 0; i < 100; i++) {
+		colorArray[i] = randomColorGenerator();
+		// console.log('colorArray[i] = ' + colorArray[i]);
+	}
+	return colorArray;
+};
+
+/* preferred time in service request */
+function preferredTime() {
+	$( 'body' ).on( 'click', '.ux-dropdown-content .checkbox.pref-time', function () {
+		$( this ).find( 'input').show().focus();
+	});
+};
+
 /* developers JS */
 $(function () {
-	
 	/* ---- Note : sent by : "ramu.gade@rbc.com" on "Tue, Jul 25 6:03 PM" */
 	/* -- on blur - component  */
 	$('body').on('blur', 'div.ux-input.ux-comp-box', function () {
@@ -606,5 +712,10 @@ $(function () {
 			$(this).removeClass('component-active');
 		}
 	});
+	$('body').on('click', 'div.calendar-control', function () {
+		if ($(this).closest('div.ux-calendar').hasClass('component-active')) {
+			$(this).closest('div.ux-calendar').find('div.cal-trigger').removeClass('cal-tri-active');
+			$(this).closest('div.ux-calendar').removeClass('component-active');
+		}
+	});
 });
-
