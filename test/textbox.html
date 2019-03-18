@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Textbox</title>
+	<link rel="stylesheet" type="text/css" href="basic.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+	<style type="text/css">
+		.form-controller u:after {
+			content: "";
+			background: red;
+			height: 100%;
+			display: block;
+			left: 30%;
+			width: 0%;
+			position: absolute;
+			top:0;bottom:0;
+			background-image: linear-gradient( 135deg, #FFA6B7 10%, #1E2AD2 100%);
+		} /* //&::after */
+		.form-controller.control-active u:after {
+			/*background: purple;*/
+		}
+		.form-controller.control-active label {
+			background-image: linear-gradient( 135deg, #FFA6B7 10%, #1E2AD2 100%);
+			-webkit-background-clip: text;
+			-webkit-text-fill-color: transparent;
+			/*background-size: 10%;*/
+		}
+	</style>
+	<style type="text/css">
+		.form-control {
+			background: white;
+			padding: 15px;
+			margin-bottom: 15px;
+		}
+		.form-control label {
+			/*color: #16E5FF;
+			color: #1E2AD2;*/
+			font-size: 13px;
+		}
+		.form-control input {
+			width: 100%;
+			border: none;
+			outline: none;
+			padding: 10px 0;
+			font-size: 15px;
+			font-weight: bold;
+		}
+		.form-control input::placeholder {
+			font-weight: normal;
+		}
+		.form-control u {
+			width: 100%;
+			height: 2px;
+			display: block;
+			/*background: linear-gradient(to right, #16E5FF, #3346DB);*/
+			background: #ddd;
+			position: relative;
+			/*background-image: linear-gradient( 135deg, #1E2AD2 10%, #FFA6B7 100%);*/
+		}
+		.form-control u:before, 
+		.form-control u::before {
+			content: '';
+			height: 100%;
+			/*width: 0%;*/
+			left: 0%;
+			/*right: 0%;*/
+			display: block;
+			position: absolute;
+			background: linear-gradient(to right, #16E5FF, #3346DB);
+			/*animation: progress 2s linear infinite;*/
+		}
+		.form-control i {display: none;}
+		.form-control em {
+			font-size: 11px;
+			font-style: normal;
+			display: block;
+			padding-top: 2px;
+		}
+		.form-control input::placeholder {
+			font-style: italic;
+			color: #aaa;
+		}
+		@keyframes progress {
+			0% {left: 0%;right: 100%;}
+			50% {left: 0%;right: 0%;}
+			100% {left: 100%;right: 0%;}
+		}
+
+		/* -- error */
+		:root {
+			--brandcolor : red;
+		}
+		.form-control.error {
+			position: relative;
+		}
+		.form-control.error label {
+			color: var(--brandcolor);
+		}
+		.form-control.error input {
+			padding-right: 28px;
+			box-sizing: border-box;
+		}
+		.form-control.error u {
+			background: var(--brandcolor);
+		}
+		.form-control.error i {
+			display: block;
+			position: absolute;
+			width: 22px;height: 22px;
+			background: var(--brandcolor);
+			right: 15px;
+			top: 50%;
+			margin-top: -11px;
+			border-radius: 50%;
+			transform: rotate(45deg);
+		}
+		.form-control.error i::before,
+		.form-control.error i::after {
+			content: '';
+			display: block;
+			width: 2px;
+			height: 12px;
+			background: white;
+			/*display: inline-block;*/
+			position: absolute;
+			left: 50%;
+			margin-left: -1px;
+			top: 50%;
+			margin-top: -6px;
+		}
+		.form-control.error i::after {
+			transform: rotate(90deg);
+		}
+		.form-control.error em {
+			color: var(--brandcolor);
+		}
+	</style>
+
+	<style type="text/css">
+		/* IE fix */
+		/*
+			8-  Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 10.0; WOW64; Trident/7.0; .NET4.0C; .NET4.0E)
+			9-  Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 10.0; WOW64; Trident/7.0; .NET4.0C; .NET4.0E)
+			10- Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 10.0; WOW64; Trident/7.0; .NET4.0C; .NET4.0E)
+			11- Mozilla/5.0 (Windows NT 10.0; WOW64; Trident/7.0; .NET4.0C; .NET4.0E; rv:11.0) like Gecko
+			Edge - Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36 Edge/15.15063
+		*/
+	</style>
+	<style type="text/css">
+		html[data-useragent*='MSIE 8.0'] .form-control input {
+			border-bottom: 2px solid red;
+		}
+		/* IE 10 & 11 */
+		::-ms-clear {
+			display: none;
+		}
+	</style>
+</head>
+<body>
+	<input type="text" name="">
+	<hr>
+	<h3>Textbox</h3>
+	<div class="form-control" role="form-control" aria-label="username">
+		<label>Username</label>
+		<input aria-label="username" type="text" name="" placeholder="Please enter username here">
+		<em>Please enter username here</em>
+	</div><!--.form-control-->
+
+	<div class="form-control error">
+		<label>Username</label>
+		<input aria-label="username" type="text" name="" placeholder="Please enter username here">
+		<em>Please enter username here</em>
+	</div><!--.form-control-->
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script type="text/javascript">
+		$('div.form-control').children('input').after('<u></u><i></i>');
+		if (navigator.userAgent.match(/msie/i) || navigator.userAgent.match(/trident/i) ){
+			var doc = document.documentElement;
+			doc.setAttribute('data-useragent', navigator.userAgent);
+			//alert('navigator.userAgent = ' + navigator.userAgent);
+		};
+	</script>
+</body>
+</html>
